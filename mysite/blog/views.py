@@ -49,7 +49,7 @@ def post_edit(request, pk):
 
 def add_comment(request, pk):
     post = get_object_or_404(Post, pk=pk)
-
+  
     form = CommentForm(request.POST)
     if form.is_valid():
         comment = form.save(commit=False)
@@ -59,11 +59,8 @@ def add_comment(request, pk):
         return redirect('post_detail', pk=post.pk)
 
 
+def comment_upvote(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.upvote()
 
-    
-
-# def comment_upvote(request, pk):
-#     comment = get_object_or_404(Comment, pk=pk)
-#     comment.upvote()
-
-#     return JsonResponse({'status': 'ok'})
+    return JsonResponse({'status': 'ok'})

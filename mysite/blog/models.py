@@ -29,5 +29,5 @@ class Comment(models.Model):
         return self.text
 
     def upvote(self):
-        self.published_date = timezone.now()
+        self.votes += 1
         self.save()

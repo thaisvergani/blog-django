@@ -11,6 +11,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('text',)
+        labels = {
+            'text': 'Digite seu comentario'
+        }
         widgets = {
             'text': forms.TextInput(attrs={
                 'class': "form-control",

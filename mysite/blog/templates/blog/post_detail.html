@@ -22,22 +22,24 @@
                             <div class="d-flex flex-row align-items-center">
                             <p class="small mb-0 ms-2">{{comment.author}}</p>
                         </div>
+                        <a href="{% url 'comment_upvote' pk=post.id %}"> like</a>
+                        <p class="small mb-0 ms-2">{{comment.votes}}</p>
+                        
                     </div>
                 </div>
             </div>
         {% endfor %}
-
+            <hr>
         <form method="POST" class="comment-form" action="{% url 'add_comment' pk=post.id %}">
              <div class="form-group">
 
                  {% csrf_token %}
-                 {{ comment_form.as_p }}
+
+                {{ comment_form.text }}
+                 <br>
                  <button type="submit" class="btn btn-primary">Enviar</button>
             </div>
         </form>
     </div>
-
-    
-
 
 {% endblock %}
