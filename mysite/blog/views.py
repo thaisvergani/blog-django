@@ -1,8 +1,9 @@
+from django.http import JsonResponse
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import PostForm
-from .models import Post
+from .forms import CommentForm, PostForm
+from .models import Comment, Post
 
 def post_list(request): 
     context = {
@@ -12,7 +13,8 @@ def post_list(request):
 
 def post_detail(request, pk):
     context = {
-        'post':  Post.objects.get(pk=pk)
+        'post':  Post.objects.get(pk=pk),
+        'comment_form': CommentForm()
     }
     return render(request, 'blog/post_detail.html', context)
 
@@ -44,3 +46,24 @@ def post_edit(request, pk):
     else:     
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
+def add_comment(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.author = request.user
+        comment.post = post
+        comment.save()
+        return redirect('post_detail', pk=post.pk)
+
+
+
+    
+
+# def comment_upvote(request, pk):
+#     comment = get_object_or_404(Comment, pk=pk)
+#     comment.upvote()
+
+#     return JsonResponse({'status': 'ok'})

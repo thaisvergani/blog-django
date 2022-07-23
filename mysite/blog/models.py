@@ -23,3 +23,11 @@ class Comment(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL,  on_delete=models.CASCADE)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
+    votes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.text
+
+    def upvote(self):
+        self.published_date = timezone.now()
+        self.save()

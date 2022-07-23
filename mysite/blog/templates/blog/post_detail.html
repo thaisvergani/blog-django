@@ -10,4 +10,34 @@
         <p> publicado em {{ post.published_date }}</p>
     {% endif %}
     <p> {{ post.text }}</p>
+
+    <div class="card-body">
+        {% for comment in post.comments.all %}           
+            <div class="form-outline mb-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <p>{{comment.text}}</p>
+
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                            <p class="small mb-0 ms-2">{{comment.author}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <form method="POST" class="comment-form" action="{% url 'add_comment' pk=post.id %}">
+             <div class="form-group">
+
+                 {% csrf_token %}
+                 {{ comment_form.as_p }}
+                 <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
+    </div>
+
+    
+
+
 {% endblock %}
