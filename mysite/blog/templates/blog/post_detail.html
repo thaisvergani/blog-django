@@ -22,8 +22,12 @@
                             <div class="d-flex flex-row align-items-center">
                             <p class="small mb-0 ms-2">{{comment.author}}</p>
                         </div>
-                        <a href="{% url 'comment_upvote' pk=post.id %}"> like</a>
-                        <p class="small mb-0 ms-2">{{comment.votes}}</p>
+                        <div class="align-items-end">
+ 
+                            <p class="small mb-0 ms-2">
+                                <a href="{% url 'comment_upvote' post_pk=post.id comment_pk=comment.id %}"> <i class="bi bi-hand-thumbs-up-fill"></i></a>
+                                {{comment.votes}}</p>
+                        </div>
                         
                     </div>
                 </div>

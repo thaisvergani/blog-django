@@ -59,8 +59,9 @@ def add_comment(request, pk):
         return redirect('post_detail', pk=post.pk)
 
 
-def comment_upvote(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
+def comment_upvote(request, post_pk, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
     comment.upvote()
 
-    return JsonResponse({'status': 'ok'})
+    return redirect('post_detail', pk=post_pk)
+
