@@ -58,12 +58,12 @@ class ViewTests(TestCase):
 
     def test_future_post(self):
         """
-        Posts with a published_date in the past are displayed on the
+        Posts with a published_date in the future are not displayed on the
         index page.
         """
-        post = create_post(text="Future post.", days=30)
+        create_post(text="Future post.", days=30)
         response = self.client.get(reverse('post_list'))
         self.assertQuerysetEqual(
             response.context['posts'],
-            [post],
+            [],
         )
