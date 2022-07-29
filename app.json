@@ -1,0 +1,10 @@
+{
+    "environments": {
+        "test": {
+            "scripts": {
+                "test-setup": "python manage.py flush --noinput && python manage.py migrate --settings=app.settings.heroku",
+                "test": "python manage.py heroku --settings=app.settings.heroku"
+            }
+        }
+    }
+}
