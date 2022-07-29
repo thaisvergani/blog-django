@@ -6,7 +6,7 @@ from .models import Comment, Post
 
 def post_list(request): 
     context = {
-        'posts':  Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+        'posts':  []
     }
     return render(request, 'blog/post_list.html', context)
 
